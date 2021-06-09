@@ -8,6 +8,19 @@ Prerequisites
 Requires the DotNet framework 4.6
 If the TSP is to be used in SNMP mode then ensure that the Network between the TSP either has Jumbo frames turned off or the MTU does exceed 1514 bytes.
 
+v1.9
+=========================
+Created standAlone 64bit installer, this version is now the latest production release that supports both standard logclient interface and the snmpAgent interface. 
+
+v1.8.0.7 - v1.8.0.9
+=========================
+not released
+
+v1.8.0.6
+=========================
+Added Tsp to 64bit RecorderSuite installer v4.8.2, created 1 channel xml configuration, this will be installed in c:\Programme Files\Sentinel\RecorderSuite\TechnicalSupervisor
+on installation.
+
 V1.8.0.5 12-02-2020 WIP
 =========================
    Force SNMP Debug Dialog to be on the front of any other controls on the screen.
