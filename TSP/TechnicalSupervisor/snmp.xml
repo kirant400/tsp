@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<thruput>
+  <snmpagents>
+    <snmpagent>
+      <snmp_address>10.24.2.30:161</snmp_address>
+      <snmp_version>1</snmp_version>
+      <snmp_username>none</snmp_username>
+      <snmp_password>none</snmp_password>
+      <log_client_address>10.24.2.30:161</log_client_address>
+      <log_client_address>10.24.2.40:161</log_client_address>
+    </snmpagent>
+    <snmpagent>
+      <snmp_address>10.24.2.30:161</snmp_address>
+      <snmp_version>1</snmp_version>
+      <snmp_username>none</snmp_username>
+      <snmp_password>none</snmp_password>
+    </snmpagent>
+  </snmpagents>
+
+  <tsps>
+    <tsp>
+      <snmpagents>
+        <snmpagent>
+          <snmp_address>10.24.2.30:161</snmp_address>
+          <snmp_version>1</snmp_version>
+          <snmp_username>none</snmp_username>
+          <snmp_password>none</snmp_password>
+        </snmpagent>
+        <snmpagent>
+          <snmp_address>10.24.2.40:161</snmp_address>
+          <snmp_version>1</snmp_version>
+          <snmp_username>none</snmp_username>
+          <snmp_password>none</snmp_password>
+        </snmpagent>
+      </snmpagents>
+    </tsp>
+  </tsps>
+
+</thruput>

@@ -1,0 +1,143 @@
+THRUPUT-MIB2V1 DEFINITIONS ::= BEGIN
+--
+-- Thruput MIB definitions v2.1
+--
+
+IMPORTS
+        OBJECT-TYPE, MODULE-IDENTITY, Integer32, enterprises, DisplayString
+                FROM SNMPv2-SMI
+        TEXTUAL-CONVENTION, DateAndTime
+                FROM SNMPv2-TC
+		;
+
+--
+-- Top level module
+--
+thruput MODULE-IDENTITY
+    LAST-UPDATED "202002030000Z"
+    ORGANIZATION "www.thruput.co.uk"
+    CONTACT-INFO    
+		"postal:   	Thruput Ltd
+                    6 Whitworth Road, Marston Trading Estate,
+                    Frome, Somerset, BA11 4BY UK
+
+          email:    support@thruput.co.uk"
+		  
+	DESCRIPTION "Mib for reading records fron from the Sentinel Event Log"
+	REVISION "202003930000Z"
+    DESCRIPTION
+	"MIB for the Sentinel Record and Replay system"
+	REVISION "201504160000Z"
+    DESCRIPTION "V2.0 - Reads the unacknowledged events from the event log"
+	REVISION "201504160000Z"
+    DESCRIPTION "V1.3 - Adding SNMP trap support"
+    REVISION "201503240000Z"
+    DESCRIPTION "V1.2 - Extended support for advanced features"
+    REVISION "201405300000Z"
+    DESCRIPTION "V1.1 - Adding Thruput IANA allocated number"
+    REVISION "201405240000Z"
+    DESCRIPTION "V1.0 - First release for comment"
+    ::= { enterprises 43963 }  -- Thruput = 43963
+
+tsp			OBJECT IDENTIFIER ::= {thruput 1}
+eventlog	OBJECT IDENTIFIER ::= {tsp 3}
+
+--
+-- Custom Syntax types
+--
+
+
+
+	
+-------------------------------------------------------------------------
+-- Eventlog Section
+-------------------------------------------------------------------------
+
+eCount OBJECT-TYPE
+    SYNTAX  Integer32
+	MAX-ACCESS  read-only
+	STATUS  current
+	DESCRIPTION
+          "This variable gives the number of unique unacknowledged events read from the eventlog."
+	::= {eventlog 1}
+
+eTime OBJECT-TYPE
+    SYNTAX  DateAndTime
+	MAX-ACCESS  read-only
+	STATUS  current
+	DESCRIPTION
+          "This variable gives the date and time that the events were last read from the eventlog."
+	::= {eventlog 3}
+
+VerifyUser OBJECT-TYPE
+    SYNTAX  Integer32
+	MAX-ACCESS  read-only
+	STATUS  current
+	DESCRIPTION
+          "This variable will return the following values:
+		  0 = Invalid user
+		  1 = Normal user
+		  2 = Super user
+		  3 = Administrator"
+	::= {eventlog 4}
+
+AckAllEvents OBJECT-TYPE
+    SYNTAX  Integer32
+	MAX-ACCESS  read-only
+	STATUS  current
+	DESCRIPTION
+          "A GET command will cause all of the unacknowledged alarms to be acknowledged if the user is an administrator."
+	::= {eventlog 5}
+
+eTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF EEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+            "The table containing the list of unique unacknowledged events read from the eventlog."
+    ::= {eventlog 2 }
+
+eEntry OBJECT-TYPE
+    SYNTAX      EEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+			"The table row containing the details of the unique unacknowledged events read from the eventlog and it's index in the table."
+    INDEX   { eIndex }
+    ::= { eTable 1 }	
+	
+EEntry ::=
+	SEQUENCE {
+		eIndex			Integer32,
+		eStatus			DisplayString
+	}
+	
+eIndex OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+            "The index of the row of the event stored in the table. Starting from 1."
+    ::= { eEntry 1 }
+
+eStatus OBJECT-TYPE
+    SYNTAX      DisplayString
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+          "One row of unique unacknowledged event information in CSV format containing the following information:
+		  HW_ID: Identifies the item generating this event
+		  Level: The severity of the event. 0 = Information, 1 = Warning and 2 = Error.
+		  Count: The number of unacknowledged events which generated this event.
+		  TimeAndDate: The time and date of the latest unacknowledged event
+		  Channel: The ID of the channel raising the event.
+		  EventID: The ID identifying the nature of the event.
+		  ID: The index of the event in the eventlog.
+		  Description: A description of the event."
+    ::= { eEntry 2 }
+		
+	
+
+	
+	
+END

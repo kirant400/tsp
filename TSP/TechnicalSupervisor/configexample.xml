@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<thruput>
+  <tsp>
+    <config>F:\tspconfigs\nas1nas2</config>
+    <debug>Y</debug>
+    <logfolder>c:\temp\logs</logfolder>
+    <usesnmp>N</usesnmp>
+  </tsp>
+</thruput>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<thruput>
+  <tsp>
+    <config>F:\tspconfigs\tsp3</config>
+    <debug>Y</debug>
+    <logfolder>c:\temp\logs</logfolder>
+    <usesnmp>Y</usesnmp>
+    <snmpv3only>Y</snmpv3only>
+  </tsp>
+</thruput>

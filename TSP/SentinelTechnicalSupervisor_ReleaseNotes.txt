@@ -1,0 +1,242 @@
+Technical Supervisor Application
+================================
+
+Stand-alone application for managing the Sentinel Record and Replay system.
+
+Prerequisites
+==============
+Requires the DotNet framework 4.6
+If the TSP is to be used in SNMP mode then ensure that the Network between the TSP either has Jumbo frames turned off or the MTU does exceed 1514 bytes.
+
+V1.8.0.5 12-02-2020 WIP
+=========================
+   Force SNMP Debug Dialog to be on the front of any other controls on the screen.
+
+V1.8.0.4 12-02-2020 WIP
+=========================
+   In this release:
+		if configured to operate as an SNMP TSP
+			Added a login dialog
+			Added a Acknowledge all events dialog
+			Optionally read the configuration from an XML formatted file
+
+V1.8.0.3 13-01-2020 WIP
+=========================
+   In this release:
+		The time that the events were collected are also read and displayed in the event log 'debug' window. 
+
+V1.8.0.2 13-01-2020 WIP
+=========================
+   In this release:
+	Debug messages are only shown on the main screen id the -d debug option is specified on the command line
+
+V1.8 11-12-2019 WIP
+=====================
+   In this release:
+	Fixed issue found in the form displaying the events collected via SNMP not showing the grid.
+
+
+V1.8 10-12-2019 WIP
+=====================
+   In this release:
+	Fixed issue found in testing where it required a folder called c:\shared to have been created.
+   
+
+V1.8 04-12-2019 WIP
+=====================
+   In this release:
+       A new command line option (-v3) to enforce encrypted data collection via SNMP
+	   A new command line option (-l) to specify the location of the folder to log files to 
+
+The Sentinel Technical Supervisor supports the following command line options:
+
+  -config <configuration folder>    Specify the configuration folder
+                                       If this is not specified a default folder is used
+  -d                                Enable debug
+  -h                                Display help and exit
+  -i                                Install a new configuration
+                                       This can be used in conjunction with the -config option
+  -l <log folder>                   Place a copy of the events into the specified log folder
+  -snmp                             Collect the event log via snmp
+  -u                                Uninstall the configuration
+                                       This can be used in conjunction with the -config option
+  -v3                               Use the encrypted SNMP v3 protocol
+
+
+  Work still to do
+	•	Add an SNMP configuration file  for SNMP v3 etc (Discuss the format with the team)
+	•	Improve performance ( Read events quicker at Startup ) 
+	•	Keep Event Viewer ? - If so enhance it so that it makes sense to the customers
+	•	Test including many NAS's
+	
+	MIB
+	•	Mib:
+		o	Review and refine them Mib
+		o	Does the Mib need IF.MIB ?
+		o	Add collection time
+		o	Update the Mib descriptions
+		o	Remove error at end of eStatus in manageEngine
+		o	Verify the Mib with a third party tool
+
+
+V1.8 02-12-2019- WIP
+=====================
+   Now excepts a command line option to specify the location of the configuration,
+   This will allow multiple TSP instances to run on the same computer.
+   The command line options are:
+	-config <configuration folder>     	if this is not specified a default folder is used
+	-snmp                              	Collect the event log via snmp
+	-i                                 	Install a new configuration
+										This can be used with the -config option
+	-u                                 	Uninstall the configuration
+										This can be used with the -config option
+	-h                                 	Display these options and exit
+	
+  Work still to do
+	•	Add an SNMP configuration file  for SNMP v3 etc (Discuss the format with the team)
+	•	Add a configuration option to specify where the log files should go. Currently c:\temp.
+	•	Create and use and enhanced configuration file for all of the SNMP settings
+	•	The F6 and F9 key do not seem to be working
+	•	Remove debug
+	•	Improve performance ( Read events quicker at Startup ) 
+	•	Tidy up code 
+	•	Improve exception handling
+	•	Keep Event Viewer ? - If so enhance it so that it makes sense to the customers
+	•	Test including many NAS's
+	•	Update TSP development notes
+	
+	MIB
+	•	Mib:
+		o	Review and refine them Mib
+		o	Does the Mib need IF.MIB ?
+		o	Add collection time
+		o	Update the Mib descriptions
+		o	Remove error at end of eStatus in manageEngine
+		o	Verify the Mib with a third party tool
+
+V1.8 28-11- 2019- WIP
+=====================
+  In this Release
+	First released prototype version which will collect the data from the NASs via SNMP.
+	To collect via SNMP used the command line option -snmp.
+	When doing SNMP data collection all functions for acknowledging alarms and maitenance are hidden.
+	
+  Work still to do
+	•	Add an SNMP configuration file  for SNMP v3 etc (Discuss the format with the team)
+	•	Add a conifguration option to specify where the lof files should go. Currently c:\temp.
+	•	Create and use and enhanced configuration file for all of the SNMP settings
+	•	The F6 and F9 key do not seem to be working
+	•	Remove debug
+	•	Improve performance ( Read events quicker at Startup ) 
+	•	Tidy up code 
+	•	Improve exception handling
+	•	Keep Event Viewer ? - If so enhance it so that it makes sense to the customers
+	•	Test including many NAS's
+	•	Update TSP development notes
+	
+	MIB
+	•	Mib:
+		o	Review and refine them Mib
+		o	Does the Mib need IF.MIB ?
+		o	Add collection time
+		o	Update the Mib descriptions
+		o	Remove error at end of eStatus in manageEngine
+		o	Verify the Mib with a third party tool
+
+V1.7
+======
+Resolves Issue #23
+	Clear all alarms and warnings on a channel when placing it into maintenance mode
+
+V1.6
+====
+Skipped as it requires the codemeter software licensing system
+
+V1.5.3
+======
+Resolves Issue #20
+	All times now calculated and reported are in local computer time rather than UTC.
+
+V1.5.2
+======
+27/07/2019
+
+Resolved the following issues:
+ ISSUE #9:
+  The TSP user interface no longer blocks for 20 seconds  when the network cable to the NAS is disconnected.
+  Once disconnected it will keep re-trying to connect back to the disconnected NAS.
+  However it is possible to still get blocking to occur if the NAS is disconnected quickly followed by an attempt by the user to cancel an alarm.
+ ISSUE #13:
+  The occasional application Exception window being shown to the user should no longer occur.
+ ISSUE #14
+  Stop the listbox showing the NAS's when clicking on the Mimic from getting too small.
+  
+V1.5.1
+======
+19-06-2019
+Fixed the issue whereby the Scheduled Maintenance settings were not being saved .
+This was due to a bug in sqlite https://bugs.python.org/issue29099 causing logClient to crash.
+It was decided to see if we could resolve the problem by changing the TSP and NOT having to rebuild and release logClient and the other scripts with an updated version of sqlite.
+The solution was to change the format of the date saved by the TSP. This can be seen in ConfigInterface.SetMaintenanceEvents().
+
+Readme.txt has been modified to show the version number 1.5.1.
+The license agreement has been updated to show Thruput's current address in frome.
+This release is based upon version 1.5 of the TSB and NOT v1.6 which included code to require dongle to be present.
+
+NOTE: - It was noticed that more channels are shown on the maintenance list of channels that exist in the system - This has been reported as issue 5
+
+V1.5.0
+======
+
+26-6-2018
+
+Changes:-
+ > Maintenance log now uses the LogClient interface to poll for changes (via other TSP) and for updates to the log database
+
+V1.4.1
+======
+
+Fixes the following:-
+ > Acknowledging events will now work as expected
+
+V1.4.0
+======
+
+Fixes the following:-
+ > One channel systems (no backup) can now be created
+ > Removed the list of software items from the main node as these can confuse
+ > Fixed the parent inheritance for items that are not shown within the MIMIC (e.g. GuardRec)
+
+V1.3.1
+======
+
+Fixing issue that stopped events from being shown on the channel hardware.
+Forcing all events to be shown, regardless of their origin.
+
+V1.3.0
+======
+
+Changes to TSP:-
+ - Issue found with how software nodes are reported. Events should now be reported on the correct node.
+ - When minimise clicked, all dialog boxes will be hidden and restored at the same time.
+ - Fixed an issue with saving config - timeout was not being saved & restored.
+
+V1.2.1
+======
+
+Fixing an unhandled exception that occurs when watching the log messages.
+
+V1.2
+====
+
+Fixing internet viewer. Silently handle errors on page.
+
+V1.1
+====
+
+Fixing dependency for SQLITE within the installer.
+
+V1.0
+====
+
+First release 31/1/2017

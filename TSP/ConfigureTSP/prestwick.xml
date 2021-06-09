@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsp>
+  <head bg="bg.png" db="config.db">Prestwick TSP</head>
+  <servers>
+    <!-- hWId can be either number or name i.e lookup -->
+    <!-- Class is one of logclient or user -->
+    <!-- Address is the ip of the server -->
+    <!-- Backup is true/false i.e. is this server a main or a backup? -->
+    <node hwId="TSP" class="logclient" ip="127.0.0.1" port="57000" />
+	<!--
+    <node hwId="NAS1M" class="logclient" ip="192.168.1.4" port="49999" backup="true" />
+	-->
+  </servers>
+  
+  <!-- List of nodes to display to the user -->
+  <nodes>
+    <!-- If hwID is given, then button will be active -->
+    <!-- Class is one of logclient or user -->
+    <node hwId="NASM1" class="logclient" enabled="true">
+      <!-- one button per node -->
+      <!-- x/y are an absolute pixel reference to the bitmap -->
+      <!-- sx/sy are an absolute pixel reference, with the defaults  -->
+      <button x="0" y="0" sx="50" sy="50">NAS1M</button>
+      <!-- unlimited number of menu items per node -->
+      <menu src="http://192.168.1.250/eventviewer">Test</menu>
+      <menu src="http://www.google.co.uk">Google</menu>
+	</node>
+    <node hwId="NASB1" class="logclient">
+      <button x="100" y="300" sx="50" sy="50">NAS1M</button>
+      <menu src="http://192.168.1.250/eventviewer">Event Viewer</menu>
+      <menu src="http://192.168.1.250/eventviewer?show=all">Event Viewer (All events)</menu>
+	</node>
+    <node hwId="TSP" class="logclient">
+      <button x="300" y="600" sx="50" sy="50">TSP</button>
+      <menu src="http://192.168.1.250/eventviewer">Event Viewer</menu>
+      <menu src="http://192.168.1.250/eventviewer?show=all">Event Viewer (All events)</menu>
+	</node>	
+    <node hwId="FRC_CH12" class="logclient">
+      <button x="300" y="400" sx="50" sy="50">S12</button>
+      <menu src="http://192.168.1.250/eventviewer">Event Viewer</menu>
+      <menu src="http://192.168.1.250/eventviewer?show=all">Event Viewer (All events)</menu>
+	</node>	
+    <node hwId="FRC_CH11" class="logclient">
+      <button x="300" y="500" sx="50" sy="50">S12</button>
+      <menu src="http://192.168.1.250/eventviewer">Event Viewer</menu>
+      <menu src="http://192.168.1.250/eventviewer?show=all">Event Viewer (All events)</menu>
+	</node>	
+	
+    <node hwId="REPLAY_1" class="logclient">
+      <button x="600" y="300" sx="50" sy="50">NAS1M</button>
+      <menu src="http://192.168.1.250/eventviewer">Event Viewer</menu>
+      <menu src="http://192.168.1.250/eventviewer?show=all">Event Viewer (All events)</menu>
+	</node>
+
+	<!-- Buttons do not need to support logclient interface -->
+    <node hwId="*" class="user">
+      <button x="200" y="300" sx="50" sy="50" >Clear all errors</button>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 2 AND acknowledged = 0</action>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 2 AND acknowledged = 0</action>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 2 AND acknowledged = 0</action>
+	</node>
+    <node hwId="*" class="user">
+      <button x="300" y="300" sx="50" sy="50" >Clear all warnings</button>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 1 AND acknowledged = 0</action>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 1 AND acknowledged = 0</action>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 1 AND acknowledged = 0</action>
+	</node>
+
+    <node hwId="*" class="user">
+      <button x="600" y="500" sx="50" sy="50" >Clear all info</button>
+	  <action class="logClient" ip="127.0.0.1" port="57000" prompt="true">UPDATE eventLog SET acknowledged=1 WHERE level = 0 AND acknowledged = 0</action>
+	</node>
+
+    <node hwId="*" class="user">
+      <button x="300" y="700" sx="50" sy="50" >Clear all warnings</button>
+	  <action class="logclient" sql="clear all warnings on ">Clearing warnings on NAS1M</action>
+	  <action class="logclient" sql="clear all warnings">Clearing warnings on NAS1B</action>
+	  <action class="logclient" sql="clear all warnings">Clearing warnings on NAS2M</action>
+	</node>
+
+</nodes>
+  
+</tsp>

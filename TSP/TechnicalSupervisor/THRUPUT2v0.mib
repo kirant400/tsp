@@ -1,0 +1,120 @@
+THRUPUT-MIB2 DEFINITIONS ::= BEGIN
+--
+-- Thruput MIB definitions v2.0
+--
+
+IMPORTS
+        OBJECT-TYPE, MODULE-IDENTITY, Integer32, enterprises
+                FROM SNMPv2-SMI
+        TEXTUAL-CONVENTION
+                FROM SNMPv2-TC
+		InterfaceIndex
+				FROM IF-MIB;
+
+--
+-- Top level module
+--
+thruput MODULE-IDENTITY
+    LAST-UPDATED "201405300000Z"
+    ORGANIZATION "www.thruput.co.uk"
+    CONTACT-INFO    
+		"postal:   	Thruput Ltd
+                    6 Whitworth Road, Marston Trading Estate,
+                    Frome, Somerset, BA11 4BY UK
+
+          email:    support@thruput.co.uk"
+    DESCRIPTION
+	"MIB for the Sentinel Record and Replay system"
+	REVISION "201504160000Z"
+    DESCRIPTION "V2.0 - Reads the unacknowledged events from the event log"
+	REVISION "201504160000Z"
+    DESCRIPTION "V1.3 - Adding SNMP trap support"
+    REVISION "201503240000Z"
+    DESCRIPTION "V1.2 - Extended support for advanced features"
+    REVISION "201405300000Z"
+    DESCRIPTION "V1.1 - Adding Thruput IANA allocated number"
+    REVISION "201405240000Z"
+    DESCRIPTION "V1.0 - First release for comment"
+    ::= { enterprises 43963 }  -- Thruput = 43963
+
+tsp			OBJECT IDENTIFIER ::= {thruput 1}
+eventlog	OBJECT IDENTIFIER ::= {tsp 3}
+
+--
+-- Custom Syntax types
+--
+
+
+EventText ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1d;"
+    STATUS       current
+    DESCRIPTION  "The string containing the event details"
+    SYNTAX       OCTET STRING (SIZE (0..255))
+	
+
+
+	
+-------------------------------------------------------------------------
+-- Eventlog Section
+-------------------------------------------------------------------------
+
+eCount OBJECT-TYPE
+    SYNTAX  Integer32
+	MAX-ACCESS  read-only
+	STATUS  current
+	DESCRIPTION
+          "This variable gives the number of unique unacknowledged events read from the eventlog."
+	::= {eventlog 1}
+
+eTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF EEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+            "The table containing the list of unique unacknowledged events read from the eventlog."
+    ::= {eventlog 2 }
+
+eEntry OBJECT-TYPE
+    SYNTAX      EEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+			"The table row containing the details of the unique unacknowledged events read from the eventlog and it's index in the table."
+    INDEX   { eIndex }
+    ::= { eTable 1 }
+	
+EEntry ::=
+	SEQUENCE {
+		eIndex			InterfaceIndex,
+		eStatus			EventText
+	}
+	
+eIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+            "The index of the row of the event stored in the table. Starting from 1."
+    ::= { eEntry 1 }
+
+eStatus OBJECT-TYPE
+    SYNTAX      EventText
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+          "One row of unique unacknowledged event information in CSV format containing the following information:
+		  HW_ID: Identifies the item generating this event
+		  Level: The severity of the event. 0 = Information, 1 = Warning and 2 = Error.
+		  Count: The number of unacknowledged events which generated this event.
+		  TimeAndDate: The time and date of the latest unacknowledged event
+		  Channel: The channel raising the event.
+		  EventID: The ID identifying the nature of the event.
+		  ID: The index of the event in the eventlog.
+		  Description: A description of the event."
+    ::= { eEntry 2 }
+		
+	
+	
+	
+	
+END

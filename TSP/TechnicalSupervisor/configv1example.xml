@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<thruput>
+  <tsp>
+    <config>F:\tspconfigs\local</config>
+    <debug>Y</debug>
+    <logfolder>c:\temp\logs</logfolder>
+    <usesnmp>Y</usesnmp>
+    <snmpv3only>N</snmpv3only>
+    <snmpusername>agentAuthPriv</snmpusername>
+    <snmpauthpassword>auth</snmpauthpassword>
+    <snmpprivpassword>priv</snmpprivpassword>
+  </tsp>
+</thruput>

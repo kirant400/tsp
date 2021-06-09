@@ -1,0 +1,9 @@
+
+
+TODO
+====
+
+Add watchdog facility to TSP. This will enable TSP to monitor any or all software running on the remote target.
+Software will take a list of available software from the node list, but only show & apply watchdogs for the items with a tick.
+This way, software can be remotely monitored using TSP without the need for *any* software to be running.
+To enable this feature, LogClient must be running, however, and empty database will now be able to give errors instead of green lights.
