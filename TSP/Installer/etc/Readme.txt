@@ -1,4 +1,4 @@
-Sentinel Technical Supervisor - Version 1.8 was installed   WIP
+Sentinel Technical Supervisor - Version 1.9 was installed   WIP
 =========================================================
 
 Technical Supervisor is a tool for monitoring a managed Sentinel Record system. The tool is designed to be run from the desktop or program folder short-cuts.
